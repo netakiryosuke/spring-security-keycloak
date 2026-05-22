@@ -21,7 +21,7 @@ public class UserController {
 
     @GetMapping("/me")
     public User getMe() {
-        return userApplicationService.lookup("me");
+        return userApplicationService.lookupMyself();
     }
 
     @GetMapping

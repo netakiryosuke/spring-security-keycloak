@@ -60,7 +60,13 @@ docker compose up --build
 ## テストユーザー
 
 レルム `my-app` に以下のユーザーが定義されています。  
-パスワードは [Keycloak 管理コンソール](http://localhost:8080)（管理者: `admin` / `admin`）から確認・変更できます。
+パスワードは Keycloak 管理コンソールから確認・変更できます。
+
+**Keycloak 管理コンソール**  
+URL: http://localhost:8080/admin  
+ユーザー名: `admin` / パスワード: `admin`
+
+ログイン後、左メニューの **Users** からユーザーを選択し、**Credentials** タブでパスワードを確認・リセットできます。
 
 | ユーザー名 | ロール | バックエンドの対応レコード |
 |---|---|---|

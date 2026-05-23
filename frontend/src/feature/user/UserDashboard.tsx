@@ -20,6 +20,45 @@ const resolveErrorMessage = (e: any): string => {
   return e.message ?? 'エラーが発生しました'
 }
 
+const fieldStyle: React.CSSProperties = {
+  display: 'flex',
+  gap: '0.5rem',
+  padding: '0.25rem 0',
+}
+
+const labelStyle: React.CSSProperties = {
+  color: '#888',
+  minWidth: '5rem',
+  flexShrink: 0,
+}
+
+function UserCard({ user, index, total }: { user: User; index: number; total: number }) {
+  return (
+    <div>
+      {total > 1 && (
+        <div style={{ fontSize: '0.8rem', color: '#888', marginBottom: '0.4rem' }}>
+          User {index + 1}
+        </div>
+      )}
+      <div style={fieldStyle}>
+        <span style={labelStyle}>id</span>
+        <span style={{ wordBreak: 'break-all' }}>{user.id}</span>
+      </div>
+      <div style={fieldStyle}>
+        <span style={labelStyle}>username</span>
+        <span>{user.username}</span>
+      </div>
+      <div style={fieldStyle}>
+        <span style={labelStyle}>email</span>
+        <span>{user.email}</span>
+      </div>
+      {index < total - 1 && (
+        <hr style={{ border: 'none', borderTop: '1px solid #ddd', margin: '0.75rem 0' }} />
+      )}
+    </div>
+  )
+}
+
 export default function UserDashboard() {
   const { authenticated, username, login, logout } = useAuth()
   const [result, setResult] = useState<User | User[] | null>(null)
@@ -44,6 +83,8 @@ export default function UserDashboard() {
       setError(resolveErrorMessage(e))
     }
   }
+
+  const users: User[] = result === null ? [] : Array.isArray(result) ? result : [result]
 
   return (
     <div style={{ padding: '2rem', fontFamily: 'sans-serif', width: '100%', maxWidth: '600px', margin: '0 auto', boxSizing: 'border-box' }}>
@@ -71,10 +112,12 @@ export default function UserDashboard() {
 
       {error && <ErrorMessage message={error} />}
 
-      {result && (
-        <pre style={{ background: '#f4f4f4', padding: '1rem', borderRadius: '4px', margin: 0, whiteSpace: 'pre-wrap', wordBreak: 'break-all', overflowX: 'auto' }}>
-          {JSON.stringify(result, null, 2)}
-        </pre>
+      {users.length > 0 && (
+        <div style={{ background: '#f4f4f4', padding: '1rem', borderRadius: '4px', fontSize: '0.9rem' }}>
+          {users.map((user, i) => (
+            <UserCard key={user.id} user={user} index={i} total={users.length} />
+          ))}
+        </div>
       )}
     </div>
   )

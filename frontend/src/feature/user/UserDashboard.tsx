@@ -46,7 +46,7 @@ export default function UserDashboard() {
   }
 
   return (
-    <div style={{ padding: '2rem', fontFamily: 'sans-serif', maxWidth: '600px', margin: '0 auto', boxSizing: 'border-box' }}>
+    <div style={{ padding: '2rem', fontFamily: 'sans-serif', width: '100%', maxWidth: '600px', margin: '0 auto', boxSizing: 'border-box' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
         <h1 style={{ fontSize: '1.25rem', margin: 0 }}>My App</h1>
         {authenticated
@@ -69,15 +69,13 @@ export default function UserDashboard() {
         </button>
       </div>
 
-      <div style={{ minHeight: '3rem', overflow: 'hidden' }}>
-        {error && <ErrorMessage message={error} />}
+      {error && <ErrorMessage message={error} />}
 
-        {result && (
-          <pre style={{ background: '#f4f4f4', padding: '1rem', borderRadius: '4px', margin: 0, whiteSpace: 'pre-wrap', wordBreak: 'break-all', overflowX: 'auto' }}>
-            {JSON.stringify(result, null, 2)}
-          </pre>
-        )}
-      </div>
+      {result && (
+        <pre style={{ background: '#f4f4f4', padding: '1rem', borderRadius: '4px', margin: 0, whiteSpace: 'pre-wrap', wordBreak: 'break-all', overflowX: 'auto' }}>
+          {JSON.stringify(result, null, 2)}
+        </pre>
+      )}
     </div>
   )
 }

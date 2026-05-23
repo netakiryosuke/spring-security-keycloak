@@ -6,7 +6,7 @@ import ErrorMessage from '../../component/ErrorMessage'
 
 const STATUS_MESSAGES: Record<number, string> = {
   401: '認証が必要です。ログインしてください',
-  403: '権限がありません',
+  403: '認可に失敗しました。ログイン中のユーザーに権限がありません',
   404: 'リソースが見つかりません',
   500: 'サーバーエラーが発生しました',
 }

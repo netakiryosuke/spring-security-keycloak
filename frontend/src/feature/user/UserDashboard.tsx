@@ -60,7 +60,7 @@ export default function UserDashboard() {
         : <p>ログインしていません</p>
       }
 
-      <div style={{ display: 'flex', gap: '1rem', margin: '1.5rem 0' }}>
+      <div style={{ display: 'flex', gap: '1rem', margin: '1.5rem 0', justifyContent: 'center' }}>
         <button onClick={handleFindMyProfile}>
           自分の情報を照会
         </button>

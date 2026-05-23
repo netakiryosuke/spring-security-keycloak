@@ -46,9 +46,10 @@ export default function UserDashboard() {
   }
 
   return (
-    <div style={{ padding: '2rem', fontFamily: 'sans-serif', maxWidth: '600px', margin: '0 auto' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h1 style={{ fontSize: '1.25rem' }}>My App</h1>
+    <div style={{ padding: '2rem', fontFamily: 'sans-serif', maxWidth: '600px', margin: '0 auto', boxSizing: 'border-box' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+        {/* グローバルCSSのh1マージン(32px)を打ち消す */}
+        <h1 style={{ fontSize: '1.25rem', margin: 0 }}>My App</h1>
         {authenticated
           ? <button onClick={logout}>logout</button>
           : <button onClick={login}>login</button>
@@ -69,13 +70,16 @@ export default function UserDashboard() {
         </button>
       </div>
 
-      {error && <ErrorMessage message={error} />}
+      {/* error/resultが出現してもボタン位置がずれないよう領域を確保 */}
+      <div style={{ minHeight: '3rem' }}>
+        {error && <ErrorMessage message={error} />}
 
-      {result && (
-        <pre style={{ background: '#f4f4f4', padding: '1rem', borderRadius: '4px', overflow: 'auto' }}>
-          {JSON.stringify(result, null, 2)}
-        </pre>
-      )}
+        {result && (
+          <pre style={{ background: '#f4f4f4', padding: '1rem', borderRadius: '4px', overflow: 'auto', margin: 0 }}>
+            {JSON.stringify(result, null, 2)}
+          </pre>
+        )}
+      </div>
     </div>
   )
 }

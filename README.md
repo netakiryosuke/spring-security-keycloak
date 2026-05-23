@@ -123,4 +123,5 @@ Keycloak の JWT には Spring Security が標準で読まない `realm_access.r
 
 ### メソッドセキュリティ（`UserApplicationService.java`）
 
-`@EnableMethodSecurity` を有効にし、サービス層に `@PreAuthorize` を置くことで、コントローラーからアクセス制御ロジックを分離しています。
+`@EnableMethodSecurity` を有効にし、ユースケースを表現する `ApplicationService` の各メソッドに `@PreAuthorize` を付与しています。  
+「このユースケースを実行できるのは誰か」という認可ルールをユースケース境界に閉じ込めることで、コントローラーや他のレイヤーに制御が漏れ出さない設計になっています。

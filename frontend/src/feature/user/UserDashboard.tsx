@@ -4,26 +4,44 @@ import { findMyProfile, findAllUsers } from './api'
 import type { User } from './type'
 import ErrorMessage from '../../component/ErrorMessage'
 
+const STATUS_MESSAGES: Record<number, string> = {
+  401: '認証が必要です。ログインしてください',
+  403: '権限がありません',
+  404: 'リソースが見つかりません',
+  500: 'サーバーエラーが発生しました',
+}
+
+const resolveErrorMessage = (e: any): string => {
+  if (e.response) {
+    const status: number = e.response.status
+    const message = STATUS_MESSAGES[status] ?? 'エラーが発生しました'
+    return `${status} - ${message}`
+  }
+  return e.message ?? 'エラーが発生しました'
+}
+
 export default function UserDashboard() {
-  const { username, isAdmin, logout } = useAuth()
+  const { authenticated, username, login, logout } = useAuth()
   const [result, setResult] = useState<User | User[] | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   const handleFindMyProfile = async () => {
     setError(null)
+    setResult(null)
     try {
       setResult(await findMyProfile())
     } catch (e: any) {
-      setError(`エラー: ${e.response?.status} ${e.response?.data?.title ?? ''}`)
+      setError(resolveErrorMessage(e))
     }
   }
 
   const handleFindAll = async () => {
     setError(null)
+    setResult(null)
     try {
       setResult(await findAllUsers())
     } catch (e: any) {
-      setError(`エラー: ${e.response?.status} ${e.response?.data?.title ?? ''}`)
+      setError(resolveErrorMessage(e))
     }
   }
 
@@ -31,20 +49,22 @@ export default function UserDashboard() {
     <div style={{ padding: '2rem', fontFamily: 'sans-serif', maxWidth: '600px', margin: '0 auto' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h1 style={{ fontSize: '1.25rem' }}>My App</h1>
-        <button onClick={logout}>logout</button>
+        {authenticated
+          ? <button onClick={logout}>logout</button>
+          : <button onClick={login}>login</button>
+        }
       </div>
 
-      <p>ようこそ、<strong>{username}</strong> さん</p>
+      {authenticated
+        ? <p>ようこそ、<strong>{username}</strong> さん</p>
+        : <p>ログインしていません</p>
+      }
 
       <div style={{ display: 'flex', gap: '1rem', margin: '1.5rem 0' }}>
         <button onClick={handleFindMyProfile}>
           自分の情報を照会
         </button>
-        <button
-          onClick={handleFindAll}
-          disabled={!isAdmin}
-          style={{ opacity: isAdmin ? 1 : 0.4, cursor: isAdmin ? 'pointer' : 'not-allowed' }}
-        >
+        <button onClick={handleFindAll}>
           全ユーザーを表示
         </button>
       </div>

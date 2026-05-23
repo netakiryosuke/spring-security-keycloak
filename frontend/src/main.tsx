@@ -4,10 +4,10 @@ import './index.css'
 import App from './App.tsx'
 import keycloak from './auth/keycloak.ts'
 
-keycloak.init({ onLoad: 'login-required' }).then(() => {
+keycloak.init({ onLoad: 'check-sso' }).then(() => {
   createRoot(document.getElementById('root')!).render(
     <StrictMode>
-      <App />
+      <App authenticated={keycloak.authenticated} />
     </StrictMode>,
   )
 })

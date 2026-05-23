@@ -1,9 +1,13 @@
 import { AuthProvider } from './auth/AuthProvider'
 import UserDashboard from './feature/user/UserDashboard'
 
-export default function App() {
+interface Props {
+  authenticated: boolean
+}
+
+export default function App({ authenticated }: Props) {
   return (
-    <AuthProvider>
+    <AuthProvider authenticated={authenticated}>
       <UserDashboard />
     </AuthProvider>
   )

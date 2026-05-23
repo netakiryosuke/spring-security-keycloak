@@ -43,7 +43,7 @@ services:
       SERVER_PORT: 8081
       SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://keycloak:8080/realms/my-app
       APP_SECURITY_JWT_ISSUER_VALIDATE_URI: http://localhost:8080/realms/my-app
-      APP_SECURITY_CORS_ALLOWED_ORIGINS: http://localhost:3000
+      APP_SECURITY_CORS_ALLOWED_ORIGINS: http://localhost:5173
     depends_on:
       - keycloak
 

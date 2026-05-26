@@ -1,7 +1,7 @@
 # spring-security-keycloak
 
-Keycloak と Spring Security を組み合わせた **認証・認可の学習用サンプル**です。  
-JWT ベースのトークン検証、ロールによるエンドポイント制御、React フロントエンドからの OIDC フローが簡易的に実装されています。
+Spring Security と Keycloak を組み合わせた認証・認可のサンプルです。  
+JWT ベースのトークン検証、ロールによる制御、React フロントエンドからの OIDC フローが簡易的に実装されています。
 
 ## 構成
 
@@ -15,9 +15,36 @@ JWT ベースのトークン検証、ロールによるエンドポイント制�
 
 | コンポーネント | 技術 | ポート |
 |---|---|---|
-| IdP | Keycloak (latest) + PostgreSQL | 8080 |
+| IdP | Keycloak + PostgreSQL | 8080 |
 | Backend | Spring Boot 4 / Java 25 | 8081 |
 | Frontend | React 19 / Vite 8 | 5173 |
+
+## 起動方法
+
+```bash
+docker compose up -d --build 
+```
+
+起動後、以下の URL にアクセスできます。
+
+| URL | 内容 |
+|---|---|
+| http://localhost:5173 | フロントエンド |
+| http://localhost:8081 | バックエンド API |
+| http://localhost:8080 | Keycloak 管理コンソール |
+
+## ローカル環境で利用できるアカウントの情報
+
+### Keycloak 管理コンソール
+URL: http://localhost:8080/admin  
+ユーザー名: `admin` / パスワード: `admin`
+
+### テストユーザー
+
+| ユーザーID | パスワード | ロール | バックエンドの対応レコード | 説明 |
+| :--- | :--- | :--- | :--- | :--- |
+| User | pass | USER | testuser (user@example.com) | 一般ユーザー。自身の情報を参照できます。 |
+| Admin | pass | USER + ADMIN | adminuser (admin@example.com) | 管理者ユーザー。全会員情報を閲覧できます。 |
 
 ## セキュリティの仕組み
 
@@ -43,40 +70,6 @@ JWT ベースのトークン検証、ロールによるエンドポイント制�
 
 アクセス制御は `@PreAuthorize("hasRole('...')")` で実装されています（`UserApplicationService.java`）。
 
-## 起動方法
-
-```bash
-docker compose up --build
-```
-
-起動後、以下の URL にアクセスできます。
-
-| URL | 内容 |
-|---|---|
-| http://localhost:5173 | フロントエンド |
-| http://localhost:8081 | バックエンド API |
-| http://localhost:8080 | Keycloak 管理コンソール |
-
-## テストユーザー
-
-レルム `my-app` に以下のユーザーが定義されています。  
-パスワードは Keycloak 管理コンソールから確認・変更できます。
-
-**Keycloak 管理コンソール**  
-URL: http://localhost:8080/admin  
-ユーザー名: `admin` / パスワード: `admin`
-
-ログイン後、左メニューの **Users** からユーザーを選択し、**Credentials** タブでパスワードを確認・リセットできます。
-
-| ユーザー名 | ロール | バックエンドの対応レコード |
-|---|---|---|
-| `user` | USER | testuser (user@example.com) |
-| `admin` | USER + ADMIN | adminuser (admin@example.com) |
-
-> バックエンドのユーザーストアはダミー実装（`DummyUserRepository`）です。  
-> Keycloak の `sub`（ユーザーID）をキーに固定データを返します。
-
-
 ## 検証パターン
 
 フロントエンドの **「自分の情報を照会」** ・ **「全ユーザーを表示」** ボタンで、以下の挙動を確認できます。
@@ -92,18 +85,18 @@ URL: http://localhost:8080/admin
 
 | 操作 | 結果 |
 |---|---|
-| 自分の情報を照会 | `200` - testuser のプロフィール JSON |
+| 自分の情報を照会 | `200` - testuser のプロフィール |
 | 全ユーザーを表示 | `403` - 権限がありません（ADMIN ロール不足） |
 
 ### `admin` でログイン（USER + ADMIN ロール）
 
 | 操作 | 結果 |
 |---|---|
-| 自分の情報を照会 | `200` - adminuser のプロフィール JSON |
-| 全ユーザーを表示 | `200` - 全ユーザー一覧 JSON |
+| 自分の情報を照会 | `200` - adminuser のプロフィール |
+| 全ユーザーを表示 | `200` - 全ユーザー一覧 |
 
 
-## 学習のポイント
+## ポイント
 
 ### JWT の検証（`SecurityConfig.java`）
 

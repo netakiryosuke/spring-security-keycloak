@@ -46,6 +46,43 @@ URL: http://localhost:8080/admin
 | User | pass | USER | testuser (user@example.com) | 一般ユーザー。自身の情報を参照できます。 |
 | Admin | pass | USER + ADMIN | adminuser (admin@example.com) | 管理者ユーザー。全会員情報を閲覧できます。 |
 
+## 検証パターン
+
+フロントエンドの **「自分の情報を照会」** ・ **「全ユーザーを表示」** ボタンで、以下の挙動を確認できます。
+
+### 未ログイン状態
+
+| 操作 | 結果 |
+|---|---|
+| 自分の情報を照会 | `401` - 認証が必要です |
+| 全ユーザーを表示 | `401` - 認証が必要です |
+
+<img width="628" height="240" alt="image" src="https://github.com/user-attachments/assets/436eb584-6e84-4f06-b09b-0782c91a54e2" />
+
+---
+
+### `user` でログイン（USER ロールのみ）
+
+| 操作 | 結果 |
+|---|---|
+| 自分の情報を照会 | `200` - testuser のプロフィール |
+| 全ユーザーを表示 | `403` - 権限がありません（ADMIN ロール不足） |
+
+<img width="572" height="318" alt="image" src="https://github.com/user-attachments/assets/ae33d697-1e0b-4d6e-a785-ea3d77b33f1b" />
+
+<img width="567" height="250" alt="image" src="https://github.com/user-attachments/assets/d1998af2-7ce2-41b4-886f-ec3c4debe4b8" />
+
+---
+
+### `admin` でログイン（USER + ADMIN ロール）
+
+| 操作 | 結果 |
+|---|---|
+| 自分の情報を照会 | `200` - adminuser のプロフィール |
+| 全ユーザーを表示 | `200` - 全ユーザー一覧 |
+
+<img width="563" height="693" alt="image" src="https://github.com/user-attachments/assets/ab2b6859-2b5b-43ac-9a55-507d16892368" />
+
 ## セキュリティの仕組み
 
 ### 認証フロー
@@ -69,32 +106,6 @@ URL: http://localhost:8080/admin
 | GET | `/users` | `ADMIN` | 全ユーザー一覧を返す |
 
 アクセス制御は `@PreAuthorize("hasRole('...')")` で実装されています（`UserApplicationService.java`）。
-
-## 検証パターン
-
-フロントエンドの **「自分の情報を照会」** ・ **「全ユーザーを表示」** ボタンで、以下の挙動を確認できます。
-
-### 未ログイン状態
-
-| 操作 | 結果 |
-|---|---|
-| 自分の情報を照会 | `401` - 認証が必要です |
-| 全ユーザーを表示 | `401` - 認証が必要です |
-
-### `user` でログイン（USER ロールのみ）
-
-| 操作 | 結果 |
-|---|---|
-| 自分の情報を照会 | `200` - testuser のプロフィール |
-| 全ユーザーを表示 | `403` - 権限がありません（ADMIN ロール不足） |
-
-### `admin` でログイン（USER + ADMIN ロール）
-
-| 操作 | 結果 |
-|---|---|
-| 自分の情報を照会 | `200` - adminuser のプロフィール |
-| 全ユーザーを表示 | `200` - 全ユーザー一覧 |
-
 
 ## ポイント
 

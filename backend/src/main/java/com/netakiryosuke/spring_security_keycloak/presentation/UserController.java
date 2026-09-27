@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.netakiryosuke.spring_security_keycloak.application.UserApplicationService;
+import com.netakiryosuke.spring_security_keycloak.application.UserSummaryDto;
 import com.netakiryosuke.spring_security_keycloak.domain.User;
 
 @RestController
@@ -25,7 +26,7 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> list() {
+    public List<UserSummaryDto> list() {
         return userApplicationService.list();
     }
 }

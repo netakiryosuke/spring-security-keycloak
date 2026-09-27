@@ -27,7 +27,10 @@ public class UserApplicationService {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    public List<User> list() {
-        return userRepository.findAll();
+    public List<UserSummaryDto> list() {
+        return userRepository.findAll().stream()
+                .map(user -> new UserSummaryDto(
+                        user.id(), user.username(), user.email(), user.birthDate()))
+                .toList();
     }
 }

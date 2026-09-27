@@ -418,6 +418,271 @@
     "notBefore" : 0,
     "groups" : [ ]
   }, {
+    "id" : "eb36c9ab-5f69-4f9c-8eed-bfe53c16353c",
+    "username" : "aoi",
+    "firstName" : "葵",
+    "lastName" : "鈴木",
+    "email" : "aoi@example.com",
+    "emailVerified" : true,
+    "enabled" : true,
+    "createdTimestamp" : 1790513158199,
+    "totp" : false,
+    "credentials" : [ {
+      "id" : "8f0aa4d6-7de5-44af-9209-28a28d37cead",
+      "type" : "password",
+      "createdDate" : 1790513158230,
+      "secretData" : "{\"value\":\"eEylTkNcXn0iQdYhs/OulerPTs8wKCYM/tc/HCHqSNI=\",\"salt\":\"kkZw9qppsSUHJXK3ZZNnLw==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":5,\"algorithm\":\"argon2\",\"additionalParameters\":{\"hashLength\":[\"32\"],\"memory\":[\"7168\"],\"type\":[\"id\"],\"version\":[\"1.3\"],\"parallelism\":[\"1\"]}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "USER", "default-roles-my-app" ],
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "af0d76c4-15cb-453a-a0b1-3ee1a0f67c85",
+    "username" : "hina",
+    "firstName" : "陽菜",
+    "lastName" : "中村",
+    "email" : "hina@example.com",
+    "emailVerified" : true,
+    "enabled" : true,
+    "createdTimestamp" : 1790513158847,
+    "totp" : false,
+    "credentials" : [ {
+      "id" : "618cbbde-24bf-4e3b-8897-64fc133f22a8",
+      "type" : "password",
+      "createdDate" : 1790513158872,
+      "secretData" : "{\"value\":\"wOZKmhbOS8g/tX4evgifqPKTacYrYKluf4P1CIf3beY=\",\"salt\":\"EX2I00NvCAraMb710v2vcQ==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":5,\"algorithm\":\"argon2\",\"additionalParameters\":{\"hashLength\":[\"32\"],\"memory\":[\"7168\"],\"type\":[\"id\"],\"version\":[\"1.3\"],\"parallelism\":[\"1\"]}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "USER", "default-roles-my-app" ],
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "8f3f53e5-769e-4e00-b1bf-df9132ef84c5",
+    "username" : "itsuki",
+    "firstName" : "樹",
+    "lastName" : "山本",
+    "email" : "itsuki@example.com",
+    "emailVerified" : true,
+    "enabled" : true,
+    "createdTimestamp" : 1790513158752,
+    "totp" : false,
+    "credentials" : [ {
+      "id" : "8ba1332a-c05d-44f9-a0ad-1874ad8cc350",
+      "type" : "password",
+      "createdDate" : 1790513158775,
+      "secretData" : "{\"value\":\"OKqYTL+lvwttRSa32GXJnFg8beCPP1kdIDfsdOf3Oeg=\",\"salt\":\"uT6vOTH/LZN4ayvsGUEoeg==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":5,\"algorithm\":\"argon2\",\"additionalParameters\":{\"hashLength\":[\"32\"],\"memory\":[\"7168\"],\"type\":[\"id\"],\"version\":[\"1.3\"],\"parallelism\":[\"1\"]}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "USER", "default-roles-my-app" ],
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "d8e00b9a-3631-413e-91af-182947239425",
+    "username" : "kaito",
+    "firstName" : "海斗",
+    "lastName" : "伊藤",
+    "email" : "kaito@example.com",
+    "emailVerified" : true,
+    "enabled" : true,
+    "createdTimestamp" : 1790513158533,
+    "totp" : false,
+    "credentials" : [ {
+      "id" : "bce4cf48-2903-4b17-9b2a-241cd4557ec4",
+      "type" : "password",
+      "createdDate" : 1790513158559,
+      "secretData" : "{\"value\":\"deq2Q0drbnuNKIMhFz0YI5q+vyRPvfMjC1vuhSTnzac=\",\"salt\":\"fmIWiu+jALWwMWCv9SEWaw==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":5,\"algorithm\":\"argon2\",\"additionalParameters\":{\"hashLength\":[\"32\"],\"memory\":[\"7168\"],\"type\":[\"id\"],\"version\":[\"1.3\"],\"parallelism\":[\"1\"]}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "USER", "default-roles-my-app" ],
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "bfb9e53d-bb5d-4c0b-801f-378c1cbdd211",
+    "username" : "koharu",
+    "firstName" : "小春",
+    "lastName" : "山田",
+    "email" : "koharu@example.com",
+    "emailVerified" : true,
+    "enabled" : true,
+    "createdTimestamp" : 1790513159228,
+    "totp" : false,
+    "credentials" : [ {
+      "id" : "e624491f-19de-4f65-91c6-70ff46aed300",
+      "type" : "password",
+      "createdDate" : 1790513159248,
+      "secretData" : "{\"value\":\"wd/munUyqKhUK3Ary+FKmKE4ciY2NcH95isf+Ee0cxE=\",\"salt\":\"88iimw8/WKNXh9rY88iF+g==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":5,\"algorithm\":\"argon2\",\"additionalParameters\":{\"hashLength\":[\"32\"],\"memory\":[\"7168\"],\"type\":[\"id\"],\"version\":[\"1.3\"],\"parallelism\":[\"1\"]}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "USER", "default-roles-my-app" ],
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "a31f2f62-e1dd-491c-9b1d-bd2fdf52a9b1",
+    "username" : "mio",
+    "firstName" : "美緒",
+    "lastName" : "渡辺",
+    "email" : "mio@example.com",
+    "emailVerified" : true,
+    "enabled" : true,
+    "createdTimestamp" : 1790513158640,
+    "totp" : false,
+    "credentials" : [ {
+      "id" : "248ef505-3ba8-4a27-bf63-e98c2a00c254",
+      "type" : "password",
+      "createdDate" : 1790513158674,
+      "secretData" : "{\"value\":\"SEJmXhnBw7oQkCpjOcRqFxJtAnaJA+LmCnipP1WzrgY=\",\"salt\":\"Pm1oJIUNb7z3XUDWyZBgXQ==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":5,\"algorithm\":\"argon2\",\"additionalParameters\":{\"hashLength\":[\"32\"],\"memory\":[\"7168\"],\"type\":[\"id\"],\"version\":[\"1.3\"],\"parallelism\":[\"1\"]}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "USER", "default-roles-my-app" ],
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "0c405565-bcdd-4c27-9e83-76a56ffecfe1",
+    "username" : "nao",
+    "firstName" : "直",
+    "lastName" : "吉田",
+    "email" : "nao@example.com",
+    "emailVerified" : true,
+    "enabled" : true,
+    "createdTimestamp" : 1790513159140,
+    "totp" : false,
+    "credentials" : [ {
+      "id" : "36f17b05-58bb-4c96-bee3-57557311b6aa",
+      "type" : "password",
+      "createdDate" : 1790513159169,
+      "secretData" : "{\"value\":\"NRkJ6ODciwdhIdpePUDygub8acy3bFQzxZM6VUPvThY=\",\"salt\":\"HvvTB0cXMmfgrTVj7zss8w==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":5,\"algorithm\":\"argon2\",\"additionalParameters\":{\"hashLength\":[\"32\"],\"memory\":[\"7168\"],\"type\":[\"id\"],\"version\":[\"1.3\"],\"parallelism\":[\"1\"]}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "USER", "default-roles-my-app" ],
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "e84b9cd1-2c6f-42f8-8b19-da5d978711c9",
+    "username" : "osawa",
+    "firstName" : "太郎",
+    "lastName" : "大沢",
+    "email" : "osawa@example.com",
+    "emailVerified" : false,
+    "enabled" : true,
+    "createdTimestamp" : 1790512312011,
+    "totp" : false,
+    "credentials" : [ {
+      "id" : "d1cc5210-0320-49c7-8cbe-ced940b83e96",
+      "type" : "password",
+      "userLabel" : "My password",
+      "createdDate" : 1790512503758,
+      "secretData" : "{\"value\":\"4zf+LUxefCwdyV16EaFOGeYJL/XJak0OmJYfRVDwrlw=\",\"salt\":\"qTUsl+FHUGC154AFIf9jLw==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":5,\"algorithm\":\"argon2\",\"additionalParameters\":{\"hashLength\":[\"32\"],\"memory\":[\"7168\"],\"type\":[\"id\"],\"version\":[\"1.3\"],\"parallelism\":[\"1\"]}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "USER", "default-roles-my-app" ],
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "c61a465e-b754-4f18-b008-e881594ac49a",
+    "username" : "ren",
+    "firstName" : "蓮",
+    "lastName" : "高橋",
+    "email" : "ren@example.com",
+    "emailVerified" : true,
+    "enabled" : true,
+    "createdTimestamp" : 1790513158330,
+    "totp" : false,
+    "credentials" : [ {
+      "id" : "fd8120e6-8d2a-41f5-9f81-202ebdefe8e7",
+      "type" : "password",
+      "createdDate" : 1790513158354,
+      "secretData" : "{\"value\":\"ldMrlVQ+HeTFeAFGz0ARAAnVW2d7efN8chsmy7KYf1Y=\",\"salt\":\"ncIQAMj7jKkQC0aYCB2CTQ==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":5,\"algorithm\":\"argon2\",\"additionalParameters\":{\"hashLength\":[\"32\"],\"memory\":[\"7168\"],\"type\":[\"id\"],\"version\":[\"1.3\"],\"parallelism\":[\"1\"]}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "USER", "default-roles-my-app" ],
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "951d6e4a-5937-4ca1-8c78-9fc9136d81bb",
+    "username" : "saki",
+    "firstName" : "咲",
+    "lastName" : "加藤",
+    "email" : "saki@example.com",
+    "emailVerified" : true,
+    "enabled" : true,
+    "createdTimestamp" : 1790513159042,
+    "totp" : false,
+    "credentials" : [ {
+      "id" : "aa59dfea-485a-4da9-9c3c-9288ad29b304",
+      "type" : "password",
+      "createdDate" : 1790513159070,
+      "secretData" : "{\"value\":\"e9bTH1pm01n607tq9EHWljKdJd3KJBG5aEXnbs0G28s=\",\"salt\":\"8kyMOF8ltmIIoGq5YZ2NcQ==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":5,\"algorithm\":\"argon2\",\"additionalParameters\":{\"hashLength\":[\"32\"],\"memory\":[\"7168\"],\"type\":[\"id\"],\"version\":[\"1.3\"],\"parallelism\":[\"1\"]}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "USER", "default-roles-my-app" ],
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "a5b5febd-bdc0-4ea3-a1f7-0f8ee6271bcc",
+    "username" : "sora",
+    "firstName" : "蒼",
+    "lastName" : "佐藤",
+    "email" : "sora@example.com",
+    "emailVerified" : true,
+    "enabled" : true,
+    "createdTimestamp" : 1790513158011,
+    "totp" : false,
+    "credentials" : [ {
+      "id" : "af330bd4-8fcc-46d9-850b-809bd0dbfac9",
+      "type" : "password",
+      "createdDate" : 1790513158077,
+      "secretData" : "{\"value\":\"xIIOqzbCYhRw/oOW4uHzJ+kGohuppOcqNwMIpz96kMA=\",\"salt\":\"PEOy6mwDbgCTtkTFy1g+nQ==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":5,\"algorithm\":\"argon2\",\"additionalParameters\":{\"hashLength\":[\"32\"],\"memory\":[\"7168\"],\"type\":[\"id\"],\"version\":[\"1.3\"],\"parallelism\":[\"1\"]}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "USER", "default-roles-my-app" ],
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "ba729865-e7cc-4b33-a8fa-58fb5d4d5f29",
+    "username" : "takumi",
+    "firstName" : "匠",
+    "lastName" : "小林",
+    "email" : "takumi@example.com",
+    "emailVerified" : true,
+    "enabled" : true,
+    "createdTimestamp" : 1790513158943,
+    "totp" : false,
+    "credentials" : [ {
+      "id" : "ecbe9d97-5709-4613-a0a9-c07a82c23890",
+      "type" : "password",
+      "createdDate" : 1790513158968,
+      "secretData" : "{\"value\":\"+FyMiV7gQ97salNW8dHZUenw29ZkkeKxRM6RXpaIR/0=\",\"salt\":\"QBKQcvtjVe9DzwAiFnuVMw==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":5,\"algorithm\":\"argon2\",\"additionalParameters\":{\"hashLength\":[\"32\"],\"memory\":[\"7168\"],\"type\":[\"id\"],\"version\":[\"1.3\"],\"parallelism\":[\"1\"]}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "USER", "default-roles-my-app" ],
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
     "id" : "83371f03-6922-449f-9d58-dd5013089f8d",
     "username" : "user",
     "firstName" : "彰",
@@ -433,6 +698,28 @@
       "userLabel" : "マイパスワード",
       "createdDate" : 1779486513171,
       "secretData" : "{\"value\":\"C+CqTVIIPMn4epaA/AeAsgiULCHfCTKBN1D2zqz4MGk=\",\"salt\":\"cX+FKhq69o/097qrTeArsQ==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":5,\"algorithm\":\"argon2\",\"additionalParameters\":{\"hashLength\":[\"32\"],\"memory\":[\"7168\"],\"type\":[\"id\"],\"version\":[\"1.3\"],\"parallelism\":[\"1\"]}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "USER", "default-roles-my-app" ],
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "31bb0882-87e5-4b56-9fcb-be5d189f5ce1",
+    "username" : "yui",
+    "firstName" : "結衣",
+    "lastName" : "田中",
+    "email" : "yui@example.com",
+    "emailVerified" : true,
+    "enabled" : true,
+    "createdTimestamp" : 1790513158430,
+    "totp" : false,
+    "credentials" : [ {
+      "id" : "53ff79c3-761e-45f1-bc64-9b6a63f9b04a",
+      "type" : "password",
+      "createdDate" : 1790513158455,
+      "secretData" : "{\"value\":\"o5yFMPBSXQfHFsj3yF24Q6iDy6TQMKXKAcVY0cthoEk=\",\"salt\":\"DlTwthif5wQr2hLE3ttl5Q==\",\"additionalParameters\":{}}",
       "credentialData" : "{\"hashIterations\":5,\"algorithm\":\"argon2\",\"additionalParameters\":{\"hashLength\":[\"32\"],\"memory\":[\"7168\"],\"type\":[\"id\"],\"version\":[\"1.3\"],\"parallelism\":[\"1\"]}}"
     } ],
     "disableableCredentialTypes" : [ ],
@@ -1395,7 +1682,7 @@
       "subType" : "authenticated",
       "subComponents" : { },
       "config" : {
-        "allowed-protocol-mapper-types" : [ "oidc-address-mapper", "saml-user-attribute-mapper", "saml-user-property-mapper", "oidc-sha256-pairwise-sub-mapper", "oidc-usermodel-attribute-mapper", "saml-role-list-mapper", "oidc-usermodel-property-mapper", "oidc-full-name-mapper" ]
+        "allowed-protocol-mapper-types" : [ "saml-role-list-mapper", "saml-user-attribute-mapper", "oidc-sha256-pairwise-sub-mapper", "oidc-full-name-mapper", "oidc-address-mapper", "oidc-usermodel-attribute-mapper", "saml-user-property-mapper", "oidc-usermodel-property-mapper" ]
       }
     }, {
       "id" : "d3f892a5-a161-4e08-9626-be8fcd33fb2b",
@@ -1430,7 +1717,7 @@
       "subType" : "anonymous",
       "subComponents" : { },
       "config" : {
-        "allowed-protocol-mapper-types" : [ "oidc-full-name-mapper", "oidc-address-mapper", "saml-role-list-mapper", "oidc-usermodel-attribute-mapper", "saml-user-property-mapper", "saml-user-attribute-mapper", "oidc-usermodel-property-mapper", "oidc-sha256-pairwise-sub-mapper" ]
+        "allowed-protocol-mapper-types" : [ "oidc-sha256-pairwise-sub-mapper", "oidc-full-name-mapper", "saml-role-list-mapper", "oidc-usermodel-attribute-mapper", "oidc-usermodel-property-mapper", "oidc-address-mapper", "saml-user-property-mapper", "saml-user-attribute-mapper" ]
       }
     } ],
     "org.keycloak.keys.KeyProvider" : [ {

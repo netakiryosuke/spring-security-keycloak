@@ -5,6 +5,50 @@ import { findMyProfile, findAllUsers } from './api'
 import type { User, UserSummary } from './type'
 import ErrorMessage from '../../component/ErrorMessage'
 
+const PETAL_COUNT = 14
+const TAGLINE_LINES = ['着飾らないあなたから、', '新しいつながりを。'] as const
+const TAGLINE = TAGLINE_LINES.join('')
+const REGISTRATION_MESSAGE = 'よりあいは、ただいま招待制です。\n招待状を受け取った方のみご登録いただけます。'
+
+const MOMENT_CARDS = [
+  {
+    className: 'moment-flowers',
+    height: 700,
+    posts: [
+      { image: 'flowers.jpg', label: 'MY LITTLE JOYS', note: '帰り道、春を見つけた。' },
+      { image: 'walk.jpg', label: 'A SMALL DETOUR', note: '今日は、少し遠回り。' },
+    ],
+  },
+  {
+    className: 'moment-coffee',
+    height: 520,
+    posts: [
+      { image: 'coffee.jpg', label: 'SLOW SUNDAY', note: '待ち合わせより、少し早く。' },
+      { image: 'reading.jpg', label: 'ONE MORE PAGE', note: 'もう一章だけ、読んでいこう。' },
+    ],
+  },
+] as const
+
+function MomentCollage() {
+  return (
+    <div className="welcome-collage">
+      <div aria-hidden="true">
+        {MOMENT_CARDS.map((card, cardIndex) => (
+          <div className={`moment-card ${card.className}`} key={card.className}>
+            {card.posts.map(post => (
+              <div className="moment-slide" key={post.image}>
+                <p className="moment-label">{post.label}<span>0{cardIndex + 1}</span></p>
+                <img src={`/images/${post.image}`} alt="" width="600" height={card.height} />
+                <p className="moment-note">{post.note}</p>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 const STATUS_MESSAGES: Record<number, string> = {
   401: 'ログインの有効期限が切れています。もう一度ログインしてください。',
   403: 'この情報を表示する権限がありません。',
@@ -108,21 +152,32 @@ export default function UserDashboard() {
   return (
     <div className="app-shell">
       <header className="site-header">
-        <div className="brand"><span className="brand-mark" aria-hidden="true">y.</span><span>よりあい<span className="brand-caption">自分らしさから、はじまる出会い。</span></span></div>
+        <div className="brand"><span className="brand-mark" aria-hidden="true">y.</span><span>よりあい<span className="brand-caption">{TAGLINE}</span></span></div>
         <div className="session-actions">
-          {authenticated && <span className="session-name">{username}<span>さん</span></span>}
+          {authenticated && (
+            <div className="session-identity">
+              {isAdmin && <span className="admin-badge">管理者モード</span>}
+              <span className="session-name">{username}<span>さん</span></span>
+            </div>
+          )}
           <button className="button button-quiet" onClick={authenticated ? logout : login}>{authenticated ? 'ログアウト' : 'ログイン'}</button>
+          {!authenticated && <button className="button button-primary" onClick={() => window.alert(REGISTRATION_MESSAGE)}>会員登録</button>}
         </div>
       </header>
 
       <main>
         {!authenticated ? (
-          <section className="welcome card">
-            <p className="eyebrow">A LITTLE MORE YOU.</p>
-            <h1>飾らないあなたから、<br />新しいつながりを。</h1>
-            <p className="welcome-description">好きなことも、何気ない日常も。<br />まずは、あなたのプロフィールから。</p>
-            <button className="button button-primary" onClick={login}>ログインしてはじめる <span aria-hidden="true">→</span></button>
-            <span className="welcome-flower" aria-hidden="true">✳</span>
+          <section className="welcome" aria-labelledby="welcome-heading">
+            <div className="welcome-petals" aria-hidden="true">
+              {Array.from({ length: PETAL_COUNT }, (_, index) => <i key={index} />)}
+            </div>
+            <div className="welcome-copy">
+              <p className="eyebrow">YORIAI — A LITTLE MORE YOU.</p>
+              <h1 id="welcome-heading"><span>{TAGLINE_LINES[0]}</span><br /><span>{TAGLINE_LINES[1]}</span></h1>
+              <p className="welcome-description">好きなことも、何気ない日常も。<br />そのままのあなたを、誰かが好きになる。<br />まずは、あなたのプロフィールから。</p>
+              <button className="button button-primary" onClick={login}>ログインしてはじめる <span aria-hidden="true">↗</span></button>
+            </div>
+            <MomentCollage />
           </section>
         ) : (
           <>
@@ -144,7 +199,7 @@ export default function UserDashboard() {
           </>
         )}
       </main>
-      <footer className="site-footer"><span>よりあい</span><span>あなたらしい出会いを、少しずつ。</span></footer>
+      <footer className="site-footer"><span>よりあい</span><span>{TAGLINE}</span></footer>
     </div>
   )
 }

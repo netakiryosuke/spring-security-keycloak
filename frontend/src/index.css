@@ -1,37 +1,40 @@
 :root {
   font-family: 'Noto Sans JP', 'Yu Gothic', 'Hiragino Kaku Gothic ProN', system-ui, sans-serif;
   color: #3e3437;
-  background: #faf7f5;
+  background: #fff8f5;
   color-scheme: light;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   --muted: #786b70;
-  --accent: #9b425b;
-  --border: #eadfe1;
+  --accent: #b92d58;
+  --border: #f0d6d3;
 }
 
 * { box-sizing: border-box; }
 body { margin: 0; min-width: 320px; }
 button { font: inherit; cursor: pointer; }
 button:disabled { cursor: wait; opacity: .6; }
-:focus-visible { outline: 3px solid #9b425b; outline-offset: 4px; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
 h1, h2, h3, p { margin: 0; }
 h1 { font-size: clamp(1.7rem, 3vw, 2.2rem); font-weight: 650; letter-spacing: -.04em; }
 h2 { font-size: 1.1rem; font-weight: 650; }
 h3 { font-size: .8rem; color: var(--muted); font-weight: 500; }
 p { line-height: 1.85; }
-.app-shell { max-width: 1160px; min-height: 100svh; margin: auto; padding: 0 40px; display: flex; flex-direction: column; }
+.app-shell { max-width: 1280px; min-height: 100svh; margin: auto; padding: 0 40px; display: flex; flex-direction: column; }
 .site-header { min-height: 108px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 20px; }
 .brand { display: flex; align-items: center; gap: 12px; font-size: 1.25rem; font-weight: 700; letter-spacing: .12em; }
 .brand-mark { display: grid; place-items: center; width: 43px; height: 43px; background: var(--accent); color: white; border-radius: 15px 15px 15px 3px; font-family: Georgia, serif; font-size: 1.8rem; letter-spacing: -.1em; padding-right: 3px; }
 .brand-caption { display: block; margin-top: 4px; font-size: .61rem; font-weight: 400; letter-spacing: .04em; color: var(--muted); }
 .session-actions { display: flex; align-items: center; gap: 22px; }
+.session-actions .button { flex-shrink: 0; white-space: nowrap; }
+.session-identity { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.admin-badge { display: inline-block; padding: 5px 10px; border: 1px solid #b78026; border-radius: 5px; background: #fff0cc; color: #714600; font-size: .68rem; font-weight: 700; letter-spacing: .04em; white-space: nowrap; }
 .session-name { font-size: .85rem; overflow-wrap: anywhere; }
 .session-name span { margin-left: 5px; font-size: .7rem; color: var(--muted); }
 .button { min-height: 44px; border: 1px solid transparent; border-radius: 9px; padding: 11px 20px; font-size: .8rem; font-weight: 600; transition: background .15s, border-color .15s; }
 .button-primary { color: #fff; background: var(--accent); }
-.button-primary:hover:not(:disabled) { background: #803449; }
+.button-primary:hover:not(:disabled) { background: #982044; }
 .button-secondary { color: var(--accent); border-color: #cfb4bc; background: #fff; }
 .button-secondary:hover:not(:disabled), .button-quiet:hover { background: #f1e7e9; }
 .button-quiet { border-color: var(--border); background: transparent; color: #5d4b51; }
@@ -74,12 +77,48 @@ td { padding: 19px 28px; border-top: 1px solid #f0e9eb; }
 td strong { display: block; font-weight: 600; margin-bottom: 6px; }
 .birth-date { white-space: nowrap; }
 .empty-message { padding: 0 28px 28px; color: var(--muted); }
-.welcome { position: relative; overflow: hidden; padding: 80px 64px; background: #f5e9e9; margin: 20px 0; }
-.welcome h1 { font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1.55; margin-top: 22px; position: relative; z-index: 1; }
-.welcome-description { margin: 22px 0 30px; color: #715e66; font-size: .92rem; position: relative; z-index: 1; }
-.welcome .button { position: relative; z-index: 1; }
-.welcome .button span { margin-left: 20px; }
-.welcome-flower { position: absolute; font-family: Georgia, serif; font-size: 23rem; line-height: 1; right: -35px; bottom: -100px; color: #e4c5cd; transform: rotate(10deg); }
+.welcome { position: relative; isolation: isolate; overflow: hidden; display: grid; grid-template-columns: 1.25fr 1fr; min-height: 660px; padding: 62px 48px 38px; background: radial-gradient(ellipse at 85% 15%, #ffe3d0 0, transparent 55%), linear-gradient(125deg, #f9c0b8, #efa89f 60%, #f6c4ba); }
+.welcome::before { content: ''; position: absolute; z-index: -1; width: 150%; height: 180px; left: -20%; bottom: 75px; background: #fff3e9; opacity: .22; transform: rotate(-14deg); }
+.welcome-copy { position: relative; z-index: 2; align-self: center; }
+.welcome .eyebrow { font-size: .62rem; letter-spacing: .22em; margin-bottom: 32px; color: #8f2447; }
+.welcome h1 { font-family: 'Yu Mincho', 'Hiragino Mincho ProN', 'Noto Serif CJK JP', serif; font-size: clamp(1.5rem, 3.2vw, 2.65rem); font-weight: 600; letter-spacing: -.055em; line-height: 1.95; margin-top: 18px; color: #b82353; }
+.welcome h1 span { background: linear-gradient(transparent 60%, #fff3eaa6 60%, #fff3eaa6 95%, transparent 95%); padding: 3px 0; }
+.welcome-description { margin: 24px 0 28px; color: #704148; font-size: .84rem; line-height: 2.2; }
+.welcome .button { border-radius: 0; padding: 17px 24px; box-shadow: 5px 5px 0 #fff1e96b; }
+.welcome .button span { margin-left: 28px; }
+.welcome-collage { position: relative; z-index: 2; min-width: 0; min-height: 550px; }
+.moment-card { position: absolute; display: grid; padding: 13px 13px 16px; background: #fffaf2; box-shadow: 0 15px 28px #92464a26; --moment-cycle: 16s; --moment-offset: 0s; }
+.moment-slide { grid-area: 1 / 1; min-width: 0; animation: moment-first var(--moment-cycle) linear var(--moment-offset) infinite both; }
+.moment-slide:nth-child(2) { animation-name: moment-second; }
+.moment-coffee { --moment-offset: 4s; }
+.welcome-collage:hover .moment-slide { animation-play-state: paused; }
+@keyframes moment-first { 0%, 40%, 100% { opacity: 1; } 50%, 90% { opacity: 0; } }
+@keyframes moment-second { 0%, 40%, 100% { opacity: 0; } 50%, 90% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .moment-slide, .moment-slide:nth-child(2) { animation: none; }
+  .moment-slide:nth-child(2) { opacity: 0; }
+}
+.moment-label { display: flex; justify-content: space-between; color: #ae4e64; font-size: .5rem; letter-spacing: .12em; margin-bottom: 9px; }
+.moment-card img { display: block; width: 100%; height: auto; }
+.moment-note { margin-top: 12px; font-family: 'Yu Mincho', serif; font-size: .69rem; letter-spacing: .07em; color: #86505b; }
+.moment-flowers { width: 57%; left: 6%; top: 0; transform: rotate(-9deg); }
+.moment-coffee { width: 58%; right: 0; top: 260px; transform: rotate(10deg); }
+.welcome-petals { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+.welcome-petals i { position: absolute; width: 38px; height: 46px; background: url('/images/cherry-petal.png') center / contain no-repeat; opacity: .85; }
+.welcome-petals i:nth-child(1) { top: 5%; left: 3%; width: 47px; height: 48px; transform: rotate(65deg) scaleY(.7); filter: blur(.4px); }
+.welcome-petals i:nth-child(2) { top: 10%; left: 42%; width: 24px; height: 30px; transform: rotate(-35deg) scaleX(.65); opacity: .65; }
+.welcome-petals i:nth-child(3) { top: 47%; left: 51%; transform: rotate(85deg) scaleY(.55); }
+.welcome-petals i:nth-child(4) { bottom: 5%; left: 36%; transform: rotate(-25deg) scaleX(.65); opacity: .7; }
+.welcome-petals i:nth-child(5) { top: 38%; right: 3%; width: 62px; height: 68px; transform: rotate(125deg); filter: blur(1.2px); }
+.welcome-petals i:nth-child(6) { bottom: 5%; right: 2%; width: 46px; height: 54px; transform: rotate(-60deg) scaleX(-.75); filter: blur(.5px); }
+.welcome-petals i:nth-child(7) { top: 3%; right: 18%; width: 25px; height: 28px; transform: rotate(30deg); opacity: .6; }
+.welcome-petals i:nth-child(8) { bottom: 19%; left: 2%; width: 23px; height: 28px; transform: rotate(100deg) scaleY(.65); opacity: .7; }
+.welcome-petals i:nth-child(9) { top: 2%; left: 25%; width: 33px; height: 40px; transform: rotate(-110deg) scaleX(.7); opacity: .75; }
+.welcome-petals i:nth-child(10) { top: 28%; left: -1%; width: 55px; height: 62px; transform: rotate(40deg); filter: blur(1px); opacity: .65; }
+.welcome-petals i:nth-child(11) { top: 66%; left: 49%; width: 28px; height: 35px; transform: rotate(-75deg) scaleY(.7); opacity: .7; }
+.welcome-petals i:nth-child(12) { bottom: 9%; left: 16%; width: 48px; height: 52px; transform: rotate(150deg) scaleX(-.8); filter: blur(.6px); }
+.welcome-petals i:nth-child(13) { bottom: 4%; left: 58%; width: 25px; height: 32px; transform: rotate(15deg); opacity: .6; }
+.welcome-petals i:nth-child(14) { top: 20%; left: 55%; width: 31px; height: 38px; transform: rotate(-50deg) scaleX(.6); opacity: .7; }
 .site-footer { display: flex; justify-content: space-between; gap: 16px; padding: 25px 0; border-top: 1px solid var(--border); color: var(--muted); font-size: .67rem; }
 .site-footer > :first-child { font-weight: 600; letter-spacing: .15em; }
 
@@ -92,8 +131,15 @@ td strong { display: block; font-weight: 600; margin-bottom: 6px; }
   main { padding: 30px 0 40px; }
   .page-heading { align-items: flex-start; flex-direction: column; }
   .profile-layout { grid-template-columns: 1fr; }
-  .welcome { padding: 48px 26px 64px; margin: 0; }
-  .welcome-flower { font-size: 15rem; opacity: .6; bottom: -65px; }
+  .welcome { padding: 38px 24px 20px; grid-template-columns: 1fr; gap: 30px; }
+  .welcome h1 { font-size: clamp(1.4rem, 5vw, 2.3rem); letter-spacing: -.04em; }
+  .welcome .eyebrow { margin-bottom: 22px; }
+  .welcome-description { font-size: .78rem; }
+  .welcome-collage { min-height: 400px; max-width: 420px; width: 100%; margin: auto; }
+  .moment-flowers { width: 53%; left: 5%; top: 12px; }
+  .moment-coffee { width: 53%; right: 1%; top: 165px; }
+  .welcome-petals i:nth-child(9) { left: 65%; }
+  .welcome-petals i:nth-child(14) { top: 35%; left: 89%; }
   .table-scroll table { min-width: 680px; }
   .details-card, .note-card { padding: 24px; }
   .account-fields > div { grid-template-columns: 100px minmax(0, 1fr); gap: 10px; }
@@ -105,5 +151,8 @@ td strong { display: block; font-weight: 600; margin-bottom: 6px; }
   .brand-mark { width: 36px; height: 36px; }
   .session-name { display: none; }
   .button { padding: 11px 14px; }
+  .site-header { gap: 10px; }
+  .session-actions { gap: 6px; }
+  .session-actions .button { padding-inline: 10px; }
   .site-footer { flex-direction: column; gap: 6px; }
 }

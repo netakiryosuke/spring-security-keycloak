@@ -3,5 +3,5 @@ interface Props {
 }
 
 export default function ErrorMessage({ message }: Props) {
-  return <div style={{ color: 'red', marginBottom: '1rem', wordBreak: 'keep-all' }}>{message}</div>
+  return <div className="error-message" role="alert">{message}</div>
 }

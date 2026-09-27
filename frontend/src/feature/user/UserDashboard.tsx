@@ -6,148 +6,145 @@ import type { User, UserSummary } from './type'
 import ErrorMessage from '../../component/ErrorMessage'
 
 const STATUS_MESSAGES: Record<number, string> = {
-  401: '認証が必要です。ログインしてください',
-  403: '認可に失敗しました。ログイン中のユーザーに権限がありません',
-  404: 'リソースが見つかりません',
-  500: 'サーバーエラーが発生しました',
+  401: 'ログインの有効期限が切れています。もう一度ログインしてください。',
+  403: 'この情報を表示する権限がありません。',
+  404: 'プロフィールが見つかりません。',
+  500: '情報を取得できませんでした。時間をおいてお試しください。',
 }
 
-const resolveErrorMessage = (e: unknown): string => {
-  if (isAxiosError(e) && e.response) {
-    const status: number = e.response.status
-    const message = STATUS_MESSAGES[status] ?? 'エラーが発生しました'
-    return `${status} - ${message}`
+const resolveErrorMessage = (error: unknown): string => {
+  if (isAxiosError(error) && error.response) {
+    return STATUS_MESSAGES[error.response.status] ?? '情報を取得できませんでした。'
   }
-  return e instanceof Error ? e.message : 'エラーが発生しました'
+  return error instanceof Error ? error.message : 'エラーが発生しました。'
 }
 
-const fieldStyle: React.CSSProperties = {
-  display: 'flex',
-  gap: '0.5rem',
-  padding: '0.25rem 0',
-}
-
-const labelStyle: React.CSSProperties = {
-  color: '#888',
-  minWidth: '5rem',
-  flexShrink: 0,
-}
-
-function UserCard({ user, index, total }: { user: User | UserSummary; index: number; total: number }) {
+function Profile({ user }: { user: User }) {
   return (
-    <div>
-      {total > 1 && (
-        <div style={{ fontSize: '0.8rem', color: '#888', marginBottom: '0.4rem' }}>
-          User {index + 1}
+    <div className="profile-layout">
+      <section className="card profile-card" aria-labelledby="profile-name">
+        <div className="profile-banner" aria-hidden="true" />
+        <div className="profile-content">
+          <div className="avatar" aria-hidden="true">{user.username.slice(0, 1).toUpperCase()}</div>
+          <p className="eyebrow">MY PROFILE</p>
+          <h2 id="profile-name">{user.username}</h2>
+          <p className="profile-subtitle">{user.residence} · {user.occupation}</p>
+          <div className="introduction">
+            <h3>自己紹介</h3>
+            <p>{user.introduction}</p>
+          </div>
+        </div>
+      </section>
+      <div className="profile-details">
+        <section className="card details-card" aria-labelledby="account-heading">
+          <p className="eyebrow">ACCOUNT</p>
+          <h2 id="account-heading">登録情報</h2>
+          <dl className="account-fields">
+            <div><dt>メールアドレス</dt><dd>{user.email}</dd></div>
+            <div><dt>生年月日</dt><dd>{user.birthDate}</dd></div>
+            <div><dt>居住地</dt><dd>{user.residence}</dd></div>
+            <div><dt>職業</dt><dd>{user.occupation}</dd></div>
+            <div><dt>会員ID</dt><dd className="member-id">{user.id}</dd></div>
+          </dl>
+        </section>
+        <section className="card note-card" aria-labelledby="note-heading">
+          <p className="eyebrow">PERSONAL NOTE</p>
+          <h2 id="note-heading">自分だけのメモ</h2>
+          <p className="note-message">{user.secretMessage}</p>
+        </section>
+      </div>
+    </div>
+  )
+}
+
+function MemberList({ users }: { users: UserSummary[] }) {
+  return (
+    <section className="card members-card" aria-labelledby="members-heading">
+      <div className="members-heading">
+        <h2 id="members-heading">登録会員</h2>
+        <span className="count-badge">{users.length}人</span>
+      </div>
+      {users.length === 0 ? <p className="empty-message">登録されている会員はいません。</p> : (
+        <div className="table-scroll" role="region" aria-label="登録会員一覧" tabIndex={0}>
+          <table>
+            <thead><tr><th scope="col">会員</th><th scope="col">メールアドレス</th><th scope="col">生年月日</th></tr></thead>
+            <tbody>
+              {users.map(user => (
+                <tr key={user.id}>
+                  <td><strong>{user.username}</strong><span className="member-id">{user.id}</span></td>
+                  <td>{user.email}</td>
+                  <td className="birth-date">{user.birthDate}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
-      <div style={fieldStyle}>
-        <span style={labelStyle}>id</span>
-        <span style={{ wordBreak: 'break-all' }}>{user.id}</span>
-      </div>
-      <div style={fieldStyle}>
-        <span style={labelStyle}>ニックネーム</span>
-        <span>{user.username}</span>
-      </div>
-      <div style={fieldStyle}>
-        <span style={labelStyle}>メールアドレス</span>
-        <span>{user.email}</span>
-      </div>
-      <div style={fieldStyle}>
-        <span style={labelStyle}>生年月日</span>
-        <span>{user.birthDate}</span>
-      </div>
-      {'secretMessage' in user && (
-        <>
-          <div style={fieldStyle}>
-            <span style={labelStyle}>居住地</span>
-            <span>{user.residence}</span>
-          </div>
-          <div style={fieldStyle}>
-            <span style={labelStyle}>職業</span>
-            <span>{user.occupation}</span>
-          </div>
-          <div style={fieldStyle}>
-            <span style={labelStyle}>自己紹介</span>
-            <span>{user.introduction}</span>
-          </div>
-          <div style={fieldStyle}>
-            <span style={labelStyle}>自分だけのメモ</span>
-            <span>{user.secretMessage}</span>
-          </div>
-        </>
-      )}
-      {index < total - 1 && (
-        <hr style={{ border: 'none', borderTop: '1px solid #ddd', margin: '0.75rem 0' }} />
-      )}
-    </div>
+    </section>
   )
 }
 
 export default function UserDashboard() {
   const { authenticated, username, isAdmin, login, logout } = useAuth()
   const [result, setResult] = useState<User | UserSummary[] | null>(null)
+  const [view, setView] = useState<'profile' | 'members'>('profile')
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const handleFindMyProfile = async () => {
+  const load = async (nextView: 'profile' | 'members', fetchData: () => Promise<User | UserSummary[]>) => {
+    setView(nextView)
+    setLoading(true)
     setError(null)
     setResult(null)
     try {
-      setResult(await findMyProfile())
-    } catch (e: unknown) {
-      setError(resolveErrorMessage(e))
+      setResult(await fetchData())
+    } catch (error: unknown) {
+      setError(resolveErrorMessage(error))
+    } finally {
+      setLoading(false)
     }
   }
-
-  const handleFindAll = async () => {
-    setError(null)
-    setResult(null)
-    try {
-      setResult(await findAllUsers())
-    } catch (e: unknown) {
-      setError(resolveErrorMessage(e))
-    }
-  }
-
-  const users = result === null ? [] : Array.isArray(result) ? result : [result]
 
   return (
-    <div style={{ padding: '2rem', fontFamily: 'sans-serif', width: '100%', maxWidth: '600px', margin: '0 auto', boxSizing: 'border-box' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-        <h1 style={{ fontSize: '1.25rem', margin: 0 }}>My App</h1>
-        {authenticated
-          ? <button onClick={logout}>logout</button>
-          : <button onClick={login}>login</button>
-        }
-      </div>
-
-      {authenticated
-        ? <p>ようこそ、<strong>{username}</strong> さん</p>
-        : <p>ログインしていません</p>
-      }
-
-      {authenticated && (
-        <div style={{ display: 'flex', gap: '1rem', margin: '1.5rem 0', justifyContent: 'center' }}>
-          <button onClick={handleFindMyProfile}>
-            自分の情報を照会
-          </button>
-          {isAdmin && (
-            <button onClick={handleFindAll}>
-              全ユーザーを表示
-            </button>
-          )}
+    <div className="app-shell">
+      <header className="site-header">
+        <div className="brand"><span className="brand-mark" aria-hidden="true">y.</span><span>よりあい<span className="brand-caption">自分らしさから、はじまる出会い。</span></span></div>
+        <div className="session-actions">
+          {authenticated && <span className="session-name">{username}<span>さん</span></span>}
+          <button className="button button-quiet" onClick={authenticated ? logout : login}>{authenticated ? 'ログアウト' : 'ログイン'}</button>
         </div>
-      )}
+      </header>
 
-      {error && <ErrorMessage message={error} />}
-
-      {users.length > 0 && (
-        <div style={{ background: '#f4f4f4', padding: '1rem', borderRadius: '4px', fontSize: '0.9rem' }}>
-          {users.map((user, i) => (
-            <UserCard key={user.id} user={user} index={i} total={users.length} />
-          ))}
-        </div>
-      )}
+      <main>
+        {!authenticated ? (
+          <section className="welcome card">
+            <p className="eyebrow">A LITTLE MORE YOU.</p>
+            <h1>飾らないあなたから、<br />新しいつながりを。</h1>
+            <p className="welcome-description">好きなことも、何気ない日常も。<br />まずは、あなたのプロフィールから。</p>
+            <button className="button button-primary" onClick={login}>ログインしてはじめる <span aria-hidden="true">→</span></button>
+            <span className="welcome-flower" aria-hidden="true">✳</span>
+          </section>
+        ) : (
+          <>
+            <div className="page-heading">
+              <div><p className="eyebrow">{view === 'members' ? 'MEMBERS' : 'MY PAGE'}</p><h1>{view === 'members' ? '会員一覧' : 'マイプロフィール'}</h1><p className="page-description">{view === 'members' ? '登録されている会員の情報を確認できます。' : 'あなたらしさと、大切なことをここに。'}</p></div>
+              <div className="page-actions">
+                <button className="button button-primary" disabled={loading} onClick={() => load('profile', findMyProfile)}>自分の情報を照会</button>
+                {isAdmin && <button className="button button-secondary" disabled={loading} onClick={() => load('members', findAllUsers)}>全ユーザーを表示</button>}
+              </div>
+            </div>
+            {error && <ErrorMessage message={error} />}
+            <div aria-busy={loading}>
+              {loading && <div className="card empty-state" role="status"><span className="loading-dot" aria-hidden="true" /><p>情報を読み込んでいます…</p></div>}
+              {!loading && !error && result === null && (
+                <div className="card empty-state"><span className="empty-symbol" aria-hidden="true">✳</span><h2>あなたのプロフィールを確認しましょう</h2><p>「自分の情報を照会」を押すと、登録情報とメモを表示します。</p></div>
+              )}
+              {result !== null && (Array.isArray(result) ? <MemberList users={result} /> : <Profile user={result} />)}
+            </div>
+          </>
+        )}
+      </main>
+      <footer className="site-footer"><span>よりあい</span><span>あなたらしい出会いを、少しずつ。</span></footer>
     </div>
   )
 }

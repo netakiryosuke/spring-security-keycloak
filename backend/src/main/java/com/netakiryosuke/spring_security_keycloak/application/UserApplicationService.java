@@ -1,6 +1,7 @@
 package com.netakiryosuke.spring_security_keycloak.application;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -19,14 +20,18 @@ public class UserApplicationService {
         this.authenticatedUserProvider = authenticatedUserProvider;
     }
 
-    @PreAuthorize("hasRole('USER')")
     public User lookupMyself() {
         String userId = authenticatedUserProvider.getUserId();
         return userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new NoSuchElementException("User not found"));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
+    public User lookup(String userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new NoSuchElementException("User not found"));
+    }
+
     public List<UserSummaryDto> list() {
         return userRepository.findAll().stream()
                 .map(user -> new UserSummaryDto(

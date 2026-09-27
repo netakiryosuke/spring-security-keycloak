@@ -3,6 +3,7 @@ package com.netakiryosuke.spring_security_keycloak.presentation;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,5 +29,10 @@ public class UserController {
     @GetMapping
     public List<UserSummaryDto> list() {
         return userApplicationService.list();
+    }
+
+    @GetMapping("/{id}")
+    public User get(@PathVariable("id") String id) {
+        return userApplicationService.lookup(id);
     }
 }

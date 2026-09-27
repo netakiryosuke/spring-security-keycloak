@@ -1,7 +1,8 @@
 import { useState } from 'react'
+import { isAxiosError } from 'axios'
 import { useAuth } from '../../auth/AuthProvider'
 import { findMyProfile, findAllUsers } from './api'
-import type { User } from './type'
+import type { User, UserSummary } from './type'
 import ErrorMessage from '../../component/ErrorMessage'
 
 const STATUS_MESSAGES: Record<number, string> = {
@@ -11,13 +12,13 @@ const STATUS_MESSAGES: Record<number, string> = {
   500: 'サーバーエラーが発生しました',
 }
 
-const resolveErrorMessage = (e: any): string => {
-  if (e.response) {
+const resolveErrorMessage = (e: unknown): string => {
+  if (isAxiosError(e) && e.response) {
     const status: number = e.response.status
     const message = STATUS_MESSAGES[status] ?? 'エラーが発生しました'
     return `${status} - ${message}`
   }
-  return e.message ?? 'エラーが発生しました'
+  return e instanceof Error ? e.message : 'エラーが発生しました'
 }
 
 const fieldStyle: React.CSSProperties = {
@@ -32,7 +33,7 @@ const labelStyle: React.CSSProperties = {
   flexShrink: 0,
 }
 
-function UserCard({ user, index, total }: { user: User; index: number; total: number }) {
+function UserCard({ user, index, total }: { user: User | UserSummary; index: number; total: number }) {
   return (
     <div>
       {total > 1 && (
@@ -45,13 +46,37 @@ function UserCard({ user, index, total }: { user: User; index: number; total: nu
         <span style={{ wordBreak: 'break-all' }}>{user.id}</span>
       </div>
       <div style={fieldStyle}>
-        <span style={labelStyle}>username</span>
+        <span style={labelStyle}>ニックネーム</span>
         <span>{user.username}</span>
       </div>
       <div style={fieldStyle}>
-        <span style={labelStyle}>email</span>
+        <span style={labelStyle}>メールアドレス</span>
         <span>{user.email}</span>
       </div>
+      <div style={fieldStyle}>
+        <span style={labelStyle}>生年月日</span>
+        <span>{user.birthDate}</span>
+      </div>
+      {'secretMessage' in user && (
+        <>
+          <div style={fieldStyle}>
+            <span style={labelStyle}>居住地</span>
+            <span>{user.residence}</span>
+          </div>
+          <div style={fieldStyle}>
+            <span style={labelStyle}>職業</span>
+            <span>{user.occupation}</span>
+          </div>
+          <div style={fieldStyle}>
+            <span style={labelStyle}>自己紹介</span>
+            <span>{user.introduction}</span>
+          </div>
+          <div style={fieldStyle}>
+            <span style={labelStyle}>自分だけのメモ</span>
+            <span>{user.secretMessage}</span>
+          </div>
+        </>
+      )}
       {index < total - 1 && (
         <hr style={{ border: 'none', borderTop: '1px solid #ddd', margin: '0.75rem 0' }} />
       )}
@@ -60,8 +85,8 @@ function UserCard({ user, index, total }: { user: User; index: number; total: nu
 }
 
 export default function UserDashboard() {
-  const { authenticated, username, login, logout } = useAuth()
-  const [result, setResult] = useState<User | User[] | null>(null)
+  const { authenticated, username, isAdmin, login, logout } = useAuth()
+  const [result, setResult] = useState<User | UserSummary[] | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   const handleFindMyProfile = async () => {
@@ -69,7 +94,7 @@ export default function UserDashboard() {
     setResult(null)
     try {
       setResult(await findMyProfile())
-    } catch (e: any) {
+    } catch (e: unknown) {
       setError(resolveErrorMessage(e))
     }
   }
@@ -79,12 +104,12 @@ export default function UserDashboard() {
     setResult(null)
     try {
       setResult(await findAllUsers())
-    } catch (e: any) {
+    } catch (e: unknown) {
       setError(resolveErrorMessage(e))
     }
   }
 
-  const users: User[] = result === null ? [] : Array.isArray(result) ? result : [result]
+  const users = result === null ? [] : Array.isArray(result) ? result : [result]
 
   return (
     <div style={{ padding: '2rem', fontFamily: 'sans-serif', width: '100%', maxWidth: '600px', margin: '0 auto', boxSizing: 'border-box' }}>
@@ -101,14 +126,18 @@ export default function UserDashboard() {
         : <p>ログインしていません</p>
       }
 
-      <div style={{ display: 'flex', gap: '1rem', margin: '1.5rem 0', justifyContent: 'center' }}>
-        <button onClick={handleFindMyProfile}>
-          自分の情報を照会
-        </button>
-        <button onClick={handleFindAll}>
-          全ユーザーを表示
-        </button>
-      </div>
+      {authenticated && (
+        <div style={{ display: 'flex', gap: '1rem', margin: '1.5rem 0', justifyContent: 'center' }}>
+          <button onClick={handleFindMyProfile}>
+            自分の情報を照会
+          </button>
+          {isAdmin && (
+            <button onClick={handleFindAll}>
+              全ユーザーを表示
+            </button>
+          )}
+        </div>
+      )}
 
       {error && <ErrorMessage message={error} />}
 

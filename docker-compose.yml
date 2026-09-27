@@ -29,6 +29,7 @@ services:
       KC_DB_PASSWORD: keycloak
     volumes:
       - ./realm-export.json:/opt/keycloak/data/import/realm-export.json
+      - ./keycloak/themes/yoriai:/opt/keycloak/themes/yoriai:ro
     ports:
       - "8080:8080"
     healthcheck:

@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler({AccessDeniedException.class, AuthorizationDeniedException.class})
     public ProblemDetail handleAccessDeniedException(RuntimeException e) {
-        logger.warn("認可エラー");
+        logger.warn("認可エラー", e);
         ProblemDetail problemDetail = ProblemDetail.forStatus(403);
         problemDetail.setTitle("Forbidden");
         problemDetail.setDetail("権限がありません");
@@ -26,6 +26,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(NoSuchElementException.class)
     public ProblemDetail handleNotFoundException(NoSuchElementException e) {
+        logger.warn("ユーザーが見つかりません", e);
         ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
         problemDetail.setTitle("Not Found");
         problemDetail.setDetail("ユーザーが見つかりません");

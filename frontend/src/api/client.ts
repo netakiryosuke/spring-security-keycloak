@@ -1,8 +1,9 @@
 import axios from 'axios'
 import keycloak from '../auth/keycloak'
+import { appConfig } from '../config'
 
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
+  baseURL: appConfig.apiBaseUrl,
 })
 
 apiClient.interceptors.request.use(async (config) => {

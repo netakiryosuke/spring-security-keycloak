@@ -1,5 +1,6 @@
 import { createContext, useContext, type ReactNode } from 'react'
 import keycloak from './keycloak'
+import { appConfig } from '../config'
 
 interface AuthContextType {
   authenticated: boolean
@@ -20,7 +21,7 @@ export const AuthProvider = ({ authenticated, children }: Props) => {
   const username = keycloak.tokenParsed?.preferred_username
   const isAdmin = keycloak.hasRealmRole('ADMIN')
   const login = () => keycloak.login()
-  const logout = () => keycloak.logout({ redirectUri: import.meta.env.VITE_APP_URL })
+  const logout = () => keycloak.logout({ redirectUri: appConfig.appUrl })
 
   return (
     <AuthContext.Provider value={{ authenticated, username, isAdmin, login, logout }}>
